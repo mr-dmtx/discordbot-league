@@ -24,11 +24,7 @@ client.on('messageCreate', async message =>{
     var msgResposta = "";
       if(rankingSummoner.length > 0){
         let queueType = 0;
-        console.log(rankingSummoner);
-        console.log(summoner);
         for(var i in rankingSummoner){
-          console.log(i);
-          console.log(rankingSummoner[i].queueType);
           msgResposta += summoner.name+" - "
                           +rankingSummoner[i].tier+" "
                           +rankingSummoner[i].rank+" "
