@@ -1,5 +1,5 @@
 {
-  "leagueAPIKey": "RGAPI-1355f2d4-6ab6-40cd-9722-df23da5b4354",
-  "discordBotToken": "MTA4NDU4MDY4Nzc1NzE4OTIyNA.GTLjwK.RnHb6XP7dBQyr1BLOMdyTglUVXrQNxHHQY_4yw",
+  "leagueAPIKey": "YOUR-LEAGUE-API-KEY",
+  "discordBotToken": "YOUR-DISCORD-TOKEN",
   "rankedEmblemsPath": "https://github.com/harmlessman/LOLCard/blob/master/assets/ranked-emblems/Emblem_bronze.png"
 }
