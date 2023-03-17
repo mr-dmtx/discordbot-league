@@ -49,7 +49,7 @@ module.exports = {
                 + (rankingSummoner[r].queueType == "RANKED_FLEX_SR" ? "[Flex]\n" : "\n");
             }
             else{
-              rankSummoner = "\n";
+              rankSummoner = " UNRANKED\n";
             }
           }
         }

@@ -14,7 +14,6 @@ module.exports = {
     const summonerName = interaction.options.getString('nickname');
     const summoner = await LeagueAPI.getSummonerByName(summonerName, 'br1');
     const rankingSummoner = await LeagueAPI.getLeagueRanking(summoner);
-    console.log(rankingSummoner);
     if (rankingSummoner.length > 0) {
       for (var i in rankingSummoner) {
         if(rankingSummoner[i].queueType != "RANKED_TFT_DOUBLE_UP"){
@@ -27,7 +26,7 @@ module.exports = {
         msgResposta += rankingSummoner.length > 1 ? " \n" : "";
         }
         else{
-          msgResposta = "\n";
+          msgResposta = summoner.name + " - Lvl." + summoner.summonerLevel + " UNRANKED";
         }
       }
     }
