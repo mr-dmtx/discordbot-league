@@ -1,5 +1,7 @@
 {
-  "leagueAPIKey": "YOUR-LEAGUE-API-KEY",
-  "discordBotToken": "YOUR-DISCORD-TOKEN",
-  "rankedEmblemsPath": "https://github.com/harmlessman/LOLCard/blob/master/assets/ranked-emblems/Emblem_bronze.png"
+  "leagueAPIKey": "RIOT-API-TOKEN",
+  "discordBotToken": "DISCORD-TOKEN",
+  "guildId": "SERVER-ID",
+  "clientId": "CLIENT-ID",
+  "championsLol": "http://ddragon.leagueoflegends.com/cdn/13.5.1/data/en_US/champion.json"
 }

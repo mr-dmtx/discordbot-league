@@ -1,52 +1,53 @@
-const { Client, GatewayIntentBits } = require('discord.js');
+const fs = require('node:fs');
+const path = require('node:path');
+const { Client, Events, GatewayIntentBits, Collection } = require('discord.js');
 const config = require('./config.json');
-let LeagueAPI = require('leagueapiwrapper');
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds,
   GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
 });
 
-LeagueAPI = new LeagueAPI(config.leagueAPIKey, Region.BR1);
+client.commands = new Collection();
 
-//DISCORD API
+const commandsPath = path.join(__dirname, 'commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
-client.on('ready', () => {
+for (const file of commandFiles) {
+	const filePath = path.join(commandsPath, file);
+	const command = require(filePath);
+	// Set a new item in the Collection with the key as the command name and the value as the exported module
+	if ('data' in command && 'execute' in command) {
+		client.commands.set(command.data.name, command);
+	} else {
+		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+	}
+}
+
+//DISCORD
+client.once(Events.ClientReady, () => {
   console.log("pai ta on!");
 });
 
-client.on('messageCreate', async message => {
-  if (message.author.bot || message.author.system) return;
+client.on(Events.InteractionCreate, async interaction => {
 
-  if (message.content.toLowerCase().startsWith("!elo")) {
-    const nickName = message.content.split("!elo");
-    try {
-      const summoner = await LeagueAPI.getSummonerByName(nickName[1], 'br1');
-      const rankingSummoner = await LeagueAPI.getLeagueRanking(summoner);
-      
-      var msgResposta = "";
-      if (rankingSummoner.length > 0) {
-        for (var i in rankingSummoner) {
-          msgResposta += summoner.name + " - "
-            + rankingSummoner[i].tier + " "
-            + rankingSummoner[i].rank + " "
-            + rankingSummoner[i].leaguePoints + "PDL" + (rankingSummoner[i].queueType === "RANKED_SOLO_5x5" ? " SOLO/DUO " : " FLEX ")
-            + Math.trunc((rankingSummoner[i].wins * 100) / (rankingSummoner[i].losses + rankingSummoner[i].wins)) + "% VIT. "
-            + (rankingSummoner[i].wins + rankingSummoner[i].losses) + " PARTIDAS";
-          msgResposta += rankingSummoner.length > 1 ? " \n" : "";
-        }
-      }
-      else {
-        msgResposta = summoner.name + " - Lvl." + summoner.summonerLevel + " UNRANKED";
-      }
-    } catch (e) {
-      console.log(e);
-      msgResposta = "Jogador não encontrado!";
-    };
-    message.reply(msgResposta);
+  if(!interaction.isChatInputCommand()) return;
+
+  const command = interaction.client.commands.get(interaction.commandName);
+
+  if(!command) return;
+
+  try{
+    await command.execute(interaction);
+  } catch(err) {
+    if(interaction.replied || interaction.deferred){
+      await interaction.followUp({content: 'Jogador não encontrado! Tente novamente!', ephemeral: true});
+    }
+    else{
+      await interaction.reply({content: 'Jogador não encontrado! Tente novamente!', ephemeral: true});
+    }
   }
+
 });
 
 client.login(config.discordBotToken);
-
-//LEAGUE OF LEGENDS API
