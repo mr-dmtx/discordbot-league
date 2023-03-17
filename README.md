@@ -1,13 +1,24 @@
 # discordbot-league
 Bot do discord para ver elo do League of Legends
-![image](https://user-images.githubusercontent.com/32989586/224745538-28d512d4-0656-4ee3-9a48-829480de8f3d.png)
 
-Discord.js(14.8.0) e leagueapiwrapper(2.5.0)
+Comandos:
+
+/elo 
+
+![image](https://user-images.githubusercontent.com/32989586/225924463-0a39f38a-5d1a-43ec-ba0d-34beded03cc7.png)
+
+/partida
+
+![image](https://user-images.githubusercontent.com/32989586/225924649-bd83897e-0b7a-41fb-a423-202e9889ae1a.png)
 
 Executar:
 
 -Adicionar as chaves da RIOT API e DISCORD no arquivo config.js
+-Adicionar o ClientId e GuildId no arquivo config.js
 
--Executar os comandos:
 npm install
-node index.js
+
+node index.js <br/>
+node deploy-commands.js <br/>
+ou <br/>
+npm start
