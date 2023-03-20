@@ -1,11 +1,12 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Events, GatewayIntentBits, Collection } = require('discord.js');
+const { Client, Events, GatewayIntentBits, Collection, GuildMember  } = require('discord.js');
 const config = require('./config.json');
+const { Player } = require("discord-player")
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds,
-  GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
+  GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates]
 });
 
 client.commands = new Collection();
@@ -24,7 +25,11 @@ for (const file of commandFiles) {
 	}
 }
 
-//DISCORD
+//DISCOR
+
+//player
+var player = new Player(client, { ytdlOptions: { quality: 'highestaudio' } });
+
 client.once(Events.ClientReady, () => {
   console.log("pai ta on!");
 });
@@ -38,13 +43,16 @@ client.on(Events.InteractionCreate, async interaction => {
   if(!command) return;
 
   try{
-    await command.execute(interaction);
+
+      await command.execute(interaction);
+
   } catch(err) {
+    console.log(err);
     if(interaction.replied || interaction.deferred){
-      await interaction.followUp({content: 'Jogador não encontrado! Tente novamente!', ephemeral: true});
+      await interaction.editReply({content: 'Chama o admin! Tente novamente!', ephemeral: true});
     }
     else{
-      await interaction.reply({content: 'Jogador não encontrado! Tente novamente!', ephemeral: true});
+      await interaction.editReply({content: 'Chama o admin! Tente novamente!', ephemeral: true});
     }
   }
 

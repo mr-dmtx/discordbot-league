@@ -1,0 +1,7 @@
+node_modules/
+.app
+config.json
+.zip
+*.app
+*.zip
+config.json

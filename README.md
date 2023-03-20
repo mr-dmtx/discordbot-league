@@ -1,5 +1,5 @@
 # discordbot-league
-Bot do discord para ver elo do League of Legends
+Bot do discord utilizando RIOT API e discord player
 
 Comandos:
 
