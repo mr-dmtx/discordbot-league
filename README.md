@@ -5,7 +5,7 @@ Comandos:
 
 /elo [nome de jogador]
 
-![image](https://user-images.githubusercontent.com/32989586/225924463-0a39f38a-5d1a-43ec-ba0d-34beded03cc7.png)
+![image](https://user-images.githubusercontent.com/32989586/226913377-d98687b5-49bd-45a8-ba64-e6e18af8c7ff.png)
 
 /partida [nome de jogador]
 
