@@ -58,4 +58,17 @@ client.on(Events.InteractionCreate, async interaction => {
 
 });
 
+player.events.on('playerStart', (queue, track) => {
+  // we will later define queue.metadata object while creating the queue
+  const voiceChannel = client.channels.cache.get(queue.guild.systemChannelId);
+  voiceChannel.send(`▶ Tocando agora **${track.title} - ${track.author}** escolhida por **${track.requestedBy.username}**`);
+});
+
+
+player.events.on('emptyQueue', (queue) => {
+  // we will later define queue.metadata object while creating the queue
+  const voiceChannel = client.channels.cache.get(queue.guild.systemChannelId);
+  voiceChannel.send(`As músicas acabaram, minha presença aqui já não é mais necessaria!`);
+});
+
 client.login(config.discordBotToken);

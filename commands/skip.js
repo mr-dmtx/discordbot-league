@@ -8,12 +8,10 @@ module.exports = {
     .setName('skip')
     .setDescription('Pular a música que esta tocando'),
   async execute(interaction) {
-
     try {
-
       const voiceChannel = interaction.guild.members.cache.get(interaction.member.user.id).voice.channel;
 
-      if (!voiceChannel) return (await interaction.reply("Entre em um canal de voz!"));
+      if (!voiceChannel) return (await interaction.followUp("Entre em um canal de voz!"));
 
       await interaction.deferReply({ ephemeral: true });
       const player = useMasterPlayer();
